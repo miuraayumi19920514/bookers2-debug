@@ -7,9 +7,32 @@
   <tr>
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
+	</tr>
+	<tr>
+	  <th>follows</th>
+	  <th><%= link_to user.followings.count , user_follower_path(user)%></th>
+	</tr>
+	<tr>
+	  <th>followers</th>
+	  <th><%= link_to user.followers.count , user_followed_path(user)%></th>
   </tr>
 </table>
-　
+
+<% if user != current_user %>
+  <% if current_user.bsanhaanonakaniimasuka?(user) %>
+    <%= link_to user_relationship_path(user), method: :delete , class: "btn btn-info mb-3" do %>
+      フォロー外す
+    <% end %>
+
+  <% else %>
+    <%= link_to user_relationship_path(user), method: :post , class: 'btn btn-success mb-3' do %>
+      フォローする
+    <% end %>
+  <% end %>
+<% end %>
+
+
+
 <div class='row'>
   <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
     <i class="fas fa-user-cog"></i>
