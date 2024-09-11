@@ -11,10 +11,25 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
-      <main>
-        <p id="notice"><%= notice %></p>
-      </main>
-  <%= yield %>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-4">
+            <p id="notice"><%= notice %></p>
+
+            <nav>
+              <% if user_signed_in? %>
+                <%= form_with url: search_path, method: :get, local: true do %>
+                  <%= text_field_tag :query, params[:query] %>
+                  <%= select_tag :category, options_for_select([['User', 'user'], ['Book', 'book']], selected: params[:category]) %>
+                  <%= submit_tag "Search" %>
+                <% end %>
+              <% end %>
+            </nav>
+          </div>
+        </div>
+        <%= yield %>
+      </div>
+  
     <%= render 'layouts/footer' %>
   </body>
 </html>

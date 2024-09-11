@@ -1,0 +1,18 @@
+
+<h2>Search Results</h2>
+
+<% if @results.any? %>
+  <ul>
+    <% @results.each do |result| %>
+      <li>
+        <% if params[:category] == 'user' %>
+          <%= link_to result.name , user_path(result) %>
+        <% elsif params[:category] == 'book' %>
+          <%= link_to result.title , book_path(resulr)%>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No results found</p>
+<% end %>
